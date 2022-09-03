@@ -44,6 +44,20 @@ class App extends React.Component {
     this.setState({ newItem: input });
   }
 
+  // this function used to done/complete item  
+  completedTask(id) {
+    const list = [...this.state.list];  // append to list
+    const updated_list = list.map(item =>{
+       if(item.id === id){
+         item.isDone = !item.isDone
+       }
+       return item;
+    }); 
+    this.setState({
+      list: updated_list
+    })
+  }
+
   // Render complete html code
   render() {
     return (
@@ -72,7 +86,7 @@ class App extends React.Component {
                   <li key={item.id}>
                     <input type="checkbox"
                       checked={item.isDone}
-                      onChange={() => { }} />
+                      onChange={() => {this.completedTask(item.id) }} />
                     {item.value}
                     <button className="btn" onClick={() => this.deleteItem(item.id)}>Delete</button>
                   </li>
